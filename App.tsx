@@ -1,10 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'react-native';
+import { ThemeProvider } from 'styled-components';
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto'
 import { Groups } from '@screens/Groups';
+import { Loading } from '@components/Loading';
+
+import theme from './src/theme'
+import { NewGroup } from '@screens/NewGroup';
+import { Players } from '@screens/Players';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold
+  })
+
   return (
-    <Groups />
+    <ThemeProvider theme={theme}>
+      <StatusBar
+        barStyle={'light-content'}
+        backgroundColor="transparent"
+        translucent
+      />
+      {/* {fontsLoaded ? <Groups /> : <Loading />} */}
+      {/* {fontsLoaded ? <NewGroup /> : <Loading />} */}
+      {fontsLoaded ? <Players /> : <Loading />}
+
+    </ThemeProvider>
   );
 }
 
